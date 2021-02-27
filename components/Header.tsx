@@ -1,4 +1,4 @@
-import { Flex, Spacer, Image } from '@chakra-ui/react';
+import { Flex, Spacer, Image, Text, Button, Icon, Link } from '@chakra-ui/react';
 import useSWR from 'swr';
 
 const fetcher = async (url: string): Promise<any> =>
@@ -25,13 +25,23 @@ const Header: React.FC = (): JSX.Element => {
 
   if (error) return <p>Error fetching user</p>;
   if (!data) return <p>Loading user</p>;
+  const user: User = data;
 
   return (
-    <Flex width="100%">
-      <Image src="/aerolab-logo.svg" />
+    <Flex height="70px" padding={3} width="100%">
+      <Link href="/">
+        <Image src="/aerolab-logo.svg" />
+      </Link>
       <Spacer />
-      {data.name}
-      {data.points}
+      <Text fontSize="2xl" lineHeight="45px" mr={4}>
+        {user.name}
+      </Text>
+      <Button px={5} py={6}>
+        <Text fontSize="xl" mr={2}>
+          {user.points}
+        </Text>
+        <Image mt={1} src="/icons/coin.svg" />
+      </Button>
     </Flex>
   );
 };
