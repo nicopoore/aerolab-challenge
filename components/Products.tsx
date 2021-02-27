@@ -29,7 +29,7 @@ const Products: React.FC = (): JSX.Element => {
   if (!data) return <p>Loading products...</p>;
 
   return (
-    <SimpleGrid minChildWidth={220} spacing={10}>
+    <SimpleGrid minChildWidth={220} mx={100} spacing={10}>
       {data.map((product: Product) => (
         <Box key={product._id}>
           <Image alt={product.name} src={product.img.url} />

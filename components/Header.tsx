@@ -1,4 +1,4 @@
-import { Flex, Spacer, Image, Text, Button, Icon, Link } from '@chakra-ui/react';
+import { Flex, Spacer, Image, Text, Button, Link } from '@chakra-ui/react';
 import useSWR from 'swr';
 
 const fetcher = async (url: string): Promise<any> =>
