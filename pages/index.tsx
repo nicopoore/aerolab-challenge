@@ -3,10 +3,10 @@ import { Products, Header, Banner } from '../components';
 
 const Home: React.FC = (): JSX.Element => {
   return (
-    <Box maxWidth={1300} mt={50} mx="auto">
+    <Box maxWidth={1300} mx="auto">
       <Header />
       <Banner />
-      <Products />
+      <Products itemsPerPage={16} />
     </Box>
   );
 };

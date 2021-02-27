@@ -28,7 +28,7 @@ const Header: React.FC = (): JSX.Element => {
   const user: User = data;
 
   return (
-    <Flex height="70px" padding={3} width="100%">
+    <Flex alignItems="center" height="70px" padding={3} width="100%">
       <Link href="/">
         <Image src="/aerolab-logo.svg" />
       </Link>
