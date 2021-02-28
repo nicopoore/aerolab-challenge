@@ -23,7 +23,7 @@ const HistoryItem: React.FC<Props> = (props): JSX.Element => {
 
   return (
     <>
-      <Stack alignItems="center" direction="row" justify="space-between" py={3}>
+      <Stack alignItems="center" direction="row" justify="space-between" py={5}>
         <Stack direction="row" minWidth={80}>
           <Image fallbackSrc={props.item.img.url} mr={4} src={props.item.img.hdUrl} width={24} />
           <Stack justify="center">

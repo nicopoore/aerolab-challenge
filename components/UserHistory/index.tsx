@@ -78,7 +78,7 @@ const UserHistory: React.FC<Props> = props => {
           >
             Group items
           </Button>
-          <Stack>
+          <Stack my={3}>
             {history
               .sort((a: HistoryItemType, b: HistoryItemType) =>
                 a.createDate > b.createDate ? -1 : 1

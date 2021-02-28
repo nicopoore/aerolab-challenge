@@ -21,6 +21,7 @@ interface Props {
 
 const AddPoints: React.FC<Props> = (props): JSX.Element => {
   const [isRedeeming, setIsRedeeming] = useState({ 1: false, 2: false, 3: false });
+  const initialRef = React.useRef();
 
   const handleAdd = async (amount: number, index: number): Promise<void> => {
     setIsRedeeming({ ...isRedeeming, [index]: true });
@@ -38,7 +39,7 @@ const AddPoints: React.FC<Props> = (props): JSX.Element => {
   };
 
   return (
-    <Modal isOpen={props.isOpen} onClose={props.onClose}>
+    <Modal initialFocusRef={initialRef} isOpen={props.isOpen} onClose={props.onClose}>
       <ModalOverlay />
       <ModalContent>
         <ModalHeader>Add points</ModalHeader>
@@ -51,6 +52,7 @@ const AddPoints: React.FC<Props> = (props): JSX.Element => {
             {[1000, 5000, 7500].map((number, index) => (
               <Button
                 key={`add-${number}`}
+                ref={index === 0 ? initialRef : null}
                 isLoading={isRedeeming[index]}
                 onClick={() => handleAdd(number, index)}
               >
