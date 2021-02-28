@@ -1,15 +1,34 @@
 import { Box, Flex, Text, Image, Button } from '@chakra-ui/react';
-import React from 'react';
+import React, { useState } from 'react';
+import { mutate } from 'swr';
 import { Product } from '../../../types';
 
 interface Props {
   visible: boolean;
   product: Product;
-  difference: number;
+  points: number;
+  cost: number;
+  openAddPoints: () => void;
 }
 
 const Overlay: React.FC<Props> = (props): JSX.Element => {
-  const affordable = props.difference < 0;
+  const [isRedeeming, setIsRedeeming] = useState(false);
+  const handleRedeem = async (productId: string): Promise<void> => {
+    setIsRedeeming(() => true);
+    await fetch('/api/redeem', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        productId: productId,
+      }),
+    });
+    setIsRedeeming(() => false);
+    mutate('/api/user/me', { ...props, points: props.points - props.cost });
+  };
+  const difference = props.cost - props.points;
+  const affordable = difference <= 0;
   return (
     <Box h="100%" left={0} position="absolute" top={0} w="100%">
       <Box
@@ -38,13 +57,17 @@ const Overlay: React.FC<Props> = (props): JSX.Element => {
           <Image src="/icons/coin.svg" zIndex={1} />
         </Flex>
         {affordable ? (
-          <Button mt={2}>Redeem now</Button>
+          <Button isLoading={isRedeeming} mt={2} onClick={() => handleRedeem(props.product._id)}>
+            Redeem now
+          </Button>
         ) : (
           <>
             <Text color="white" fontSize="lg" zIndex={1}>
-              You need {props.difference}
+              You need {difference}
             </Text>
-            <Button mt={2}>Get more points</Button>
+            <Button mt={2} onClick={props.openAddPoints}>
+              Get more points
+            </Button>
           </>
         )}
       </Flex>

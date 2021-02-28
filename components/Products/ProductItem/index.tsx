@@ -7,6 +7,7 @@ import Overlay from './Overlay';
 interface Props {
   product: Product;
   user: User;
+  openAddPoints: () => void;
 }
 
 const ProductItem: React.FC<Props> = (props): JSX.Element => {
@@ -42,7 +43,13 @@ const ProductItem: React.FC<Props> = (props): JSX.Element => {
         {props.product.category}
       </Text>
       <Text fontSize="lg">{props.product.name}</Text>
-      <Overlay difference={difference} product={props.product} visible={overlayIsVisible} />
+      <Overlay
+        cost={props.product.cost}
+        openAddPoints={props.openAddPoints}
+        points={props.user.points}
+        product={props.product}
+        visible={overlayIsVisible}
+      />
       <Badge difference={difference} overlayIsVisible={overlayIsVisible} />
     </Box>
   );

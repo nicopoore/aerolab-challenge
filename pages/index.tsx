@@ -33,7 +33,7 @@ const Home: React.FC = (): JSX.Element => {
     <Box maxWidth={1300} mx="auto">
       <Header openAddPoints={openAddPoints} user={user} />
       <Banner />
-      <Products itemsPerPage={16} user={user} />
+      <Products itemsPerPage={16} openAddPoints={openAddPoints} user={user} />
       <AddPoints isOpen={addPointsIsOpen} points={user.points} onClose={closeAddPoints} />
     </Box>
   );

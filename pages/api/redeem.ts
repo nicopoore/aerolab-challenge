@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 
-const points = async (req: NextApiRequest, res: NextApiResponse): Promise<void> => {
+const redeem = async (req: NextApiRequest, res: NextApiResponse): Promise<void> => {
 
   const headers = {
     Accept: 'application/json',
@@ -9,18 +9,18 @@ const points = async (req: NextApiRequest, res: NextApiResponse): Promise<void> 
     'Content-type': 'application/json',
   };
 
-  const { amount } = req.body
+  const { productId } = req.body
 
-  if ([1000, 5000, 7500].indexOf(amount) < 0) return res.status(400).end()
+  if (productId.length !== 24) return res.status(400).end()
 
-  await fetch('https://coding-challenge-api.aerolab.co/user/points', {
+  await fetch('https://coding-challenge-api.aerolab.co/redeem', {
     method: 'POST',
     headers: headers,
-    body: JSON.stringify({ amount: amount })
-  }).then(res => res.json())
+    body: JSON.stringify({ productId: productId })
+  })
 
-  res.end()
+  res.status(200).end()
 
 }
 
-export default points
+export default redeem

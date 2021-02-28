@@ -18,6 +18,7 @@ const fetcher = async (url: string): Promise<any> =>
 interface Props {
   itemsPerPage: number;
   user: User;
+  openAddPoints: () => void;
 }
 
 const Products: React.FC<Props> = (props): JSX.Element => {
@@ -55,7 +56,12 @@ const Products: React.FC<Props> = (props): JSX.Element => {
           .sort(sortingAlgorithm(sort))
           .slice(itemSlice[0], itemSlice[1])
           .map((product: Product) => (
-            <ProductItem key={product._id} product={product} user={props.user} />
+            <ProductItem
+              key={product._id}
+              openAddPoints={props.openAddPoints}
+              product={product}
+              user={props.user}
+            />
           ))}
       </Flex>
       <Toolbar
