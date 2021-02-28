@@ -1,6 +1,7 @@
 import { Box } from '@chakra-ui/react';
+import { useState } from 'react';
 import useSWR from 'swr';
-import { Products, Header, Banner } from '../components';
+import { Products, Header, Banner, AddPoints } from '../components';
 import { User } from '../types';
 
 const fetcher = async (url: string): Promise<any> =>
@@ -15,15 +16,25 @@ const fetcher = async (url: string): Promise<any> =>
 
 const Home: React.FC = (): JSX.Element => {
   const { data, error } = useSWR('/api/user/me', fetcher);
+  const [addPointsIsOpen, setAddPointsIsOpen] = useState(false);
+
+  const openAddPoints = (): void => {
+    setAddPointsIsOpen(true);
+  };
+
+  const closeAddPoints = (): void => {
+    setAddPointsIsOpen(false);
+  };
 
   if (error) return <p>Error fetching user</p>;
   if (!data) return <p>Loading user</p>;
   const user: User = data;
   return (
     <Box maxWidth={1300} mx="auto">
-      <Header user={user} />
+      <Header openAddPoints={openAddPoints} user={user} />
       <Banner />
       <Products itemsPerPage={16} user={user} />
+      <AddPoints isOpen={addPointsIsOpen} points={user.points} onClose={closeAddPoints} />
     </Box>
   );
 };
