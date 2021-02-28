@@ -8,8 +8,10 @@ interface Props {
   itemsPerPage: number;
   noSort?: boolean;
   sort?: 'recent' | 'lowest' | 'highest';
+  // eslint-disable-next-line no-unused-vars
   setSort?: (T: any) => void;
   currentPage: number;
+  // eslint-disable-next-line no-unused-vars
   setCurrentPage: (T: any) => void;
 }
 
@@ -32,7 +34,13 @@ const Toolbar: React.FC<Props> = (props): JSX.Element => {
         <Text fontSize="xl">
           {currentItems - props.itemsPerPage + 1}-{currentItems} of {props.nOfItems} products
         </Text>
-        {!props.noSort && <Sorting setSort={props.setSort} sort={props.sort} />}
+        {!props.noSort && (
+          <Sorting
+            setCurrentPage={props.setCurrentPage}
+            setSort={props.setSort}
+            sort={props.sort}
+          />
+        )}
         <Spacer />
         <NavButtons
           firstPage={firstPage}

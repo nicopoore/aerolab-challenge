@@ -1,7 +1,8 @@
 import { Box, Flex } from '@chakra-ui/react';
 import { useState } from 'react';
 import useSWR from 'swr';
-import ProductItem from './ProductItem';
+import { Product, User } from '../../types';
+import ProductItem from './ProductItem/index';
 import Toolbar from './Toolbar/index';
 
 const fetcher = async (url: string): Promise<any> =>
@@ -14,24 +15,15 @@ const fetcher = async (url: string): Promise<any> =>
     cache: 'default',
   }).then(res => res.json());
 
-interface Product {
-  img: {
-    url: string;
-    hdUrl: string;
-  };
-  _id: string;
-  name: string;
-  cost: number;
-  category: string;
-}
-
 interface Props {
   itemsPerPage: number;
+  user: User;
 }
 
 const Products: React.FC<Props> = (props): JSX.Element => {
   const { data, error } = useSWR('/api/products', fetcher);
   const [currentPage, setCurrentPage] = useState(1);
+
   const initialSort: 'recent' | 'lowest' | 'highest' = 'recent';
   const [sort, setSort] = useState(initialSort);
 
@@ -42,6 +34,7 @@ const Products: React.FC<Props> = (props): JSX.Element => {
 
   const sortingAlgorithm = <T extends Product>(
     sort: 'recent' | 'lowest' | 'highest'
+    // eslint-disable-next-line no-unused-vars
   ): ((a: T, b: T) => number) => {
     if (sort === 'recent') return (a, b) => (a._id > b._id ? 1 : -1);
     else return (a, b) => (a.cost - b.cost) * (sort === 'lowest' ? 1 : -1);
@@ -62,7 +55,7 @@ const Products: React.FC<Props> = (props): JSX.Element => {
           .sort(sortingAlgorithm(sort))
           .slice(itemSlice[0], itemSlice[1])
           .map((product: Product) => (
-            <ProductItem key={product._id} product={product} />
+            <ProductItem key={product._id} product={product} user={props.user} />
           ))}
       </Flex>
       <Toolbar

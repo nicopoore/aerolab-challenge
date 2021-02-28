@@ -2,7 +2,10 @@ import { Box, Divider, Button, Text } from '@chakra-ui/react';
 
 interface Props {
   sort: 'recent' | 'lowest' | 'highest';
+  // eslint-disable-next-line no-unused-vars
   setSort: (T: any) => void;
+  // eslint-disable-next-line no-unused-vars
+  setCurrentPage: (T: any) => void;
 }
 
 interface buttonProperties {
@@ -28,6 +31,7 @@ const Sorting: React.FC<Props> = (props): JSX.Element => {
 
   const handleClick = <T extends 'recent' | 'lowest' | 'highest'>(newSort: T): void => {
     props.setSort(() => newSort);
+    props.setCurrentPage(() => 1);
   };
   return (
     <>
@@ -42,8 +46,8 @@ const Sorting: React.FC<Props> = (props): JSX.Element => {
         return (
           <Button
             key={button.name}
-            _hover={{ bgColor: active ? 'blue.300' : 'gray.300' }}
-            bgColor={active ? 'blue.200' : 'gray.200'}
+            _hover={{ bgColor: active ? 'cyan.400' : 'gray.300' }}
+            bgColor={active ? 'cyan.300' : 'gray.200'}
             color={active ? 'white' : 'gray.500'}
             fontSize="lg"
             ml={4}
