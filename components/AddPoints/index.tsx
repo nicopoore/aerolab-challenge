@@ -44,15 +44,11 @@ const AddPoints: React.FC<Props> = (props): JSX.Element => {
         </ModalBody>
         <ModalFooter>
           <Stack direction="row">
-            <Button onClick={() => handleAdd(1000)}>
-              <Text>Add 1000</Text>
-            </Button>
-            <Button onClick={() => handleAdd(5000)}>
-              <Text>Add 5000</Text>
-            </Button>
-            <Button onClick={() => handleAdd(7500)}>
-              <Text>Add 7500</Text>
-            </Button>
+            {[1000, 5000, 7500].map(number => (
+              <Button key={`add-${number}`} onClick={() => handleAdd(number)}>
+                <Text>Add {number}</Text>
+              </Button>
+            ))}
           </Stack>
         </ModalFooter>
       </ModalContent>

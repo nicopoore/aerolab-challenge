@@ -11,15 +11,15 @@ const points = async (req: NextApiRequest, res: NextApiResponse): Promise<void> 
 
   const { amount } = req.body
 
-  console.log(amount === 5000)
-  if (amount !== (1000 || 5000 || 7500)) return res.status(503).end()
+  if ([1000, 5000, 7500].indexOf(amount) < 0) return res.status(503).end()
 
   await fetch('https://coding-challenge-api.aerolab.co/user/points', {
     method: 'POST',
     headers: headers,
     body: JSON.stringify({ amount: amount })
   }).then(res => res.json())
-    .then(res => res.status(200).end())
+
+  res.end()
 
 }
 
