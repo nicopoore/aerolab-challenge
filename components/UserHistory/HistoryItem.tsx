@@ -31,10 +31,10 @@ const HistoryItem: React.FC<Props> = (props): JSX.Element => {
           </Stack>
         </Stack>
         <Stack justify="center">
-          <Text color={qty && 'gray.400'} fontSize={qty && 'sm'}>
+          <Text color="gray.400" fontSize="sm">
             {formatDate(props.item.createDate)}
           </Text>
-          {qty && <Text>Quantity: {formatNumbers(qty)}</Text>}
+          <Text>Quantity: {qty ? formatNumbers(qty) : '1'}</Text>
         </Stack>
         <Stack alignItems="flex-end" minWidth={40}>
           <Stack direction="row">

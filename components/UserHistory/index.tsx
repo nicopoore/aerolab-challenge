@@ -60,15 +60,17 @@ const UserHistory: React.FC<Props> = props => {
   const handleClick = (): void => setIsGrouped(() => !isGrouped);
 
   const history = isGrouped ? groupedData(data) : data;
+  const initialRef = React.useRef();
 
   return (
-    <Modal isOpen={props.isOpen} size="4xl" onClose={props.onClose}>
+    <Modal initialFocusRef={initialRef} isOpen={props.isOpen} size="4xl" onClose={props.onClose}>
       <ModalOverlay />
       <ModalContent>
         <ModalHeader>User history</ModalHeader>
         <ModalCloseButton />
         <ModalBody>
           <Button
+            ref={initialRef}
             _hover={{ bgColor: isGrouped ? 'cyan.500' : 'gray.300' }}
             bgColor={isGrouped ? 'cyan.400' : 'gray.200'}
             color={isGrouped ? 'white' : 'gray.500'}
