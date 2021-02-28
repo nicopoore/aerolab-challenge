@@ -9,7 +9,7 @@ interface Props {
 const Badge: React.FC<Props> = (props): JSX.Element => {
   return (
     <>
-      {props.difference <= 0 ? (
+      {props.difference < 0 ? (
         <Image
           position="absolute"
           right={props.overlayIsVisible ? 0.5 : 2}

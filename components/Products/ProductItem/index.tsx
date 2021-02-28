@@ -17,6 +17,7 @@ const ProductItem: React.FC<Props> = (props): JSX.Element => {
   const hideOverlay = (): void => {
     setOverlayIsVisible(() => false);
   };
+  const difference = props.product.cost - props.user.points;
   return (
     <Box
       key={props.product._id}
@@ -41,11 +42,8 @@ const ProductItem: React.FC<Props> = (props): JSX.Element => {
         {props.product.category}
       </Text>
       <Text fontSize="lg">{props.product.name}</Text>
-      <Overlay product={props.product} visible={overlayIsVisible} />
-      <Badge
-        difference={props.product.cost - props.user.points}
-        overlayIsVisible={overlayIsVisible}
-      />
+      <Overlay difference={difference} product={props.product} visible={overlayIsVisible} />
+      <Badge difference={difference} overlayIsVisible={overlayIsVisible} />
     </Box>
   );
 };
