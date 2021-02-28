@@ -12,12 +12,14 @@ interface Props {
 
 const ProductItem: React.FC<Props> = (props): JSX.Element => {
   const [overlayIsVisible, setOverlayIsVisible] = useState(false);
+
   const showOverlay = (): void => {
     setOverlayIsVisible(() => true);
   };
   const hideOverlay = (): void => {
     setOverlayIsVisible(() => false);
   };
+
   const difference = props.product.cost - props.user.points;
   return (
     <Box

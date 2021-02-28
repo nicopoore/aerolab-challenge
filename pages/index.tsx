@@ -2,17 +2,8 @@ import { Box } from '@chakra-ui/react';
 import { useState } from 'react';
 import useSWR from 'swr';
 import { Products, Header, Banner, AddPoints, UserHistory } from '../components';
+import { fetcher } from '../utils/functions';
 import { UserType } from '../utils/types';
-
-const fetcher = async (url: string): Promise<any> =>
-  fetch(url, {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    mode: 'cors',
-    cache: 'default',
-  }).then(res => res.json());
 
 const Home: React.FC = (): JSX.Element => {
   const { data, error } = useSWR('/api/user/me', fetcher);

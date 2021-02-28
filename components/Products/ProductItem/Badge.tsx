@@ -1,5 +1,6 @@
 import { Tag, Image, Text } from '@chakra-ui/react';
 import React from 'react';
+import { formatNumbers } from '../../../utils/functions';
 
 interface Props {
   overlayIsVisible: boolean;
@@ -7,7 +8,6 @@ interface Props {
 }
 
 const Badge: React.FC<Props> = (props): JSX.Element => {
-  const formatNumbers = (value: number): string => value.toLocaleString('en-US');
   return (
     <>
       {props.difference <= 0 ? (

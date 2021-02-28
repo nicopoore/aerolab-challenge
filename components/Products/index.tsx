@@ -1,19 +1,10 @@
 import { Box, Flex } from '@chakra-ui/react';
 import { useState } from 'react';
 import useSWR from 'swr';
+import { fetcher } from '../../utils/functions';
 import { ProductType, UserType } from '../../utils/types';
 import ProductItem from './ProductItem/index';
 import Toolbar from './Toolbar/index';
-
-const fetcher = async (url: string): Promise<any> =>
-  fetch(url, {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    mode: 'cors',
-    cache: 'default',
-  }).then(res => res.json());
 
 interface Props {
   itemsPerPage: number;

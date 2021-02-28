@@ -1,6 +1,7 @@
 import { Box, Flex, Text, Image, Button } from '@chakra-ui/react';
 import React, { useState } from 'react';
 import { mutate } from 'swr';
+import { formatNumbers } from '../../../utils/functions';
 import { ProductType } from '../../../utils/types';
 
 interface Props {
@@ -27,7 +28,6 @@ const Overlay: React.FC<Props> = (props): JSX.Element => {
     setIsRedeeming(() => false);
     mutate('/api/user/me', { ...props, points: props.points - props.cost });
   };
-  const formatNumbers = (value: number): string => value.toLocaleString('en-US');
   const difference = props.cost - props.points;
   const affordable = difference <= 0;
   return (
