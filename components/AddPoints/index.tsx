@@ -10,7 +10,7 @@ import {
   Stack,
   Text,
 } from '@chakra-ui/react';
-import React from 'react';
+import React, { useState } from 'react';
 import { mutate } from 'swr';
 
 interface Props {
@@ -20,7 +20,10 @@ interface Props {
 }
 
 const AddPoints: React.FC<Props> = (props): JSX.Element => {
-  const handleAdd = async (amount: number): Promise<void> => {
+  const [isRedeeming, setIsRedeeming] = useState({ 1: false, 2: false, 3: false });
+
+  const handleAdd = async (amount: number, index: number): Promise<void> => {
+    setIsRedeeming({ ...isRedeeming, [index]: true });
     await fetch('/api/user/points', {
       method: 'POST',
       headers: {
@@ -30,6 +33,7 @@ const AddPoints: React.FC<Props> = (props): JSX.Element => {
         amount: amount,
       }),
     });
+    setIsRedeeming({ ...isRedeeming, [index]: false });
     mutate('/api/user/me', { ...props, points: props.points + amount });
   };
 
@@ -44,8 +48,12 @@ const AddPoints: React.FC<Props> = (props): JSX.Element => {
         </ModalBody>
         <ModalFooter>
           <Stack direction="row">
-            {[1000, 5000, 7500].map(number => (
-              <Button key={`add-${number}`} onClick={() => handleAdd(number)}>
+            {[1000, 5000, 7500].map((number, index) => (
+              <Button
+                key={`add-${number}`}
+                isLoading={isRedeeming[index]}
+                onClick={() => handleAdd(number, index)}
+              >
                 <Text>Add {number}</Text>
               </Button>
             ))}
