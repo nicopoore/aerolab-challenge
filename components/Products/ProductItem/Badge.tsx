@@ -7,6 +7,7 @@ interface Props {
 }
 
 const Badge: React.FC<Props> = (props): JSX.Element => {
+  const formatNumbers = (value: number): string => value.toLocaleString('en-US');
   return (
     <>
       {props.difference <= 0 ? (
@@ -28,7 +29,7 @@ const Badge: React.FC<Props> = (props): JSX.Element => {
           top={2}
           transition="opacity .2s"
         >
-          <Text mr={1}>You need {props.difference}</Text>
+          <Text mr={1}>You need {formatNumbers(props.difference)}</Text>
           <Image src="/icons/coin.svg" verticalAlign="center" width="25px" />
         </Tag>
       )}

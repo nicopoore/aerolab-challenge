@@ -27,6 +27,7 @@ const Overlay: React.FC<Props> = (props): JSX.Element => {
     setIsRedeeming(() => false);
     mutate('/api/user/me', { ...props, points: props.points - props.cost });
   };
+  const formatNumbers = (value: number): string => value.toLocaleString('en-US');
   const difference = props.cost - props.points;
   const affordable = difference <= 0;
   return (
@@ -52,7 +53,7 @@ const Overlay: React.FC<Props> = (props): JSX.Element => {
       >
         <Flex>
           <Text color="white" fontSize="xl" fontWeight="bold" mr={1} zIndex={1}>
-            {props.product.cost}
+            {formatNumbers(props.product.cost)}
           </Text>
           <Image src="/icons/coin.svg" zIndex={1} />
         </Flex>
@@ -63,7 +64,7 @@ const Overlay: React.FC<Props> = (props): JSX.Element => {
         ) : (
           <>
             <Text color="white" fontSize="lg" zIndex={1}>
-              You need {difference}
+              You need {formatNumbers(difference)}
             </Text>
             <Button mt={2} onClick={props.openAddPoints}>
               Get more points

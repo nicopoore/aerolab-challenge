@@ -5,6 +5,7 @@ import { User } from '../types';
 interface Props {
   user: User;
   openAddPoints: () => void;
+  openUserHistory: () => void;
 }
 
 const Header: React.FC<Props> = (props): JSX.Element => {
@@ -18,7 +19,7 @@ const Header: React.FC<Props> = (props): JSX.Element => {
         {props.user.name}
       </Text>
       <ButtonGroup isAttached>
-        <Button pl={5} py={6}>
+        <Button pl={5} py={6} onClick={props.openUserHistory}>
           <Text fontSize="xl" mr={2}>
             {props.user.points}
           </Text>
