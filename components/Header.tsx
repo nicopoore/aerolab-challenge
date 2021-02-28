@@ -1,4 +1,13 @@
-import { Flex, Spacer, Image, Text, Button, Link, ButtonGroup, IconButton } from '@chakra-ui/react';
+import {
+  Spacer,
+  Image,
+  Text,
+  Button,
+  Link,
+  ButtonGroup,
+  IconButton,
+  Stack,
+} from '@chakra-ui/react';
 import { SmallAddIcon } from '@chakra-ui/icons';
 import { User } from '../types';
 
@@ -10,7 +19,7 @@ interface Props {
 
 const Header: React.FC<Props> = (props): JSX.Element => {
   return (
-    <Flex alignItems="center" height="70px" padding={3} width="100%">
+    <Stack alignItems="center" direction="row" height="70px" padding={3} width="100%">
       <Link href="/">
         <Image src="/aerolab-logo.svg" />
       </Link>
@@ -33,7 +42,7 @@ const Header: React.FC<Props> = (props): JSX.Element => {
           onClick={props.openAddPoints}
         />
       </ButtonGroup>
-    </Flex>
+    </Stack>
   );
 };
 

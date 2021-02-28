@@ -22,7 +22,7 @@ const HistoryItem: React.FC<Props> = (props): JSX.Element => {
     <>
       <Stack alignItems="center" direction="row" justify="space-between" py={3}>
         <Stack direction="row" minWidth={80}>
-          <Image mr={4} src={props.item.img.url} width={24} />
+          <Image fallbackSrc={props.item.img.url} mr={4} src={props.item.img.hdUrl} width={24} />
           <Stack justify="center">
             <Text color="gray.400" fontSize="sm">
               {props.item.category}

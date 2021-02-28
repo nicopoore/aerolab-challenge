@@ -37,7 +37,11 @@ const ProductItem: React.FC<Props> = (props): JSX.Element => {
       onMouseEnter={showOverlay}
       onMouseLeave={hideOverlay}
     >
-      <Image alt={props.product.name} src={props.product.img.url} />
+      <Image
+        alt={props.product.name}
+        fallbackSrc={props.product.img.url}
+        src={props.product.img.hdUrl}
+      />
       <Divider my={4} />
       <Text color="gray.400" fontSize="md">
         {props.product.category}

@@ -12,6 +12,7 @@ const Badge: React.FC<Props> = (props): JSX.Element => {
     <>
       {props.difference <= 0 ? (
         <Image
+          fallbackSrc={`/icons/buy-${props.overlayIsVisible ? 'white' : 'blue'}.svg`}
           position="absolute"
           right={props.overlayIsVisible ? 0.5 : 2}
           src={`/icons/buy-${props.overlayIsVisible ? 'white' : 'blue'}.svg`}
@@ -30,7 +31,12 @@ const Badge: React.FC<Props> = (props): JSX.Element => {
           transition="opacity .2s"
         >
           <Text mr={1}>You need {formatNumbers(props.difference)}</Text>
-          <Image src="/icons/coin.svg" verticalAlign="center" width="25px" />
+          <Image
+            fallbackSrc="/icons/coin.svg"
+            src="/icons/coin.svg"
+            verticalAlign="center"
+            width="25px"
+          />
         </Tag>
       )}
     </>
