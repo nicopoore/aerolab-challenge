@@ -1,11 +1,11 @@
 import { Box, Flex, Text, Image, Button } from '@chakra-ui/react';
 import React, { useState } from 'react';
 import { mutate } from 'swr';
-import { Product } from '../../../types';
+import { ProductType } from '../../../utils/types';
 
 interface Props {
   visible: boolean;
-  product: Product;
+  product: ProductType;
   points: number;
   cost: number;
   openAddPoints: () => void;

@@ -10,7 +10,7 @@ import {
 } from '@chakra-ui/react';
 import React, { useState } from 'react';
 import useSWR from 'swr';
-import { HistoryItemRawType, HistoryItemType } from '../../types';
+import { HistoryItemRawType, HistoryItemType } from '../../utils/types';
 import HistoryItem from './HistoryItem';
 
 const fetcher = async (url: string): Promise<any> =>
@@ -30,6 +30,7 @@ interface Props {
 
 const UserHistory: React.FC<Props> = props => {
   const [isGrouped, setIsGrouped] = useState(true);
+  const initialRef = React.useRef();
 
   const { data, error } = useSWR('/api/user/history', fetcher);
   if (error) return <p>Error loading products</p>;
@@ -60,7 +61,6 @@ const UserHistory: React.FC<Props> = props => {
   const handleClick = (): void => setIsGrouped(() => !isGrouped);
 
   const history = isGrouped ? groupedData(data) : data;
-  const initialRef = React.useRef();
 
   return (
     <Modal initialFocusRef={initialRef} isOpen={props.isOpen} size="4xl" onClose={props.onClose}>
@@ -79,13 +79,17 @@ const UserHistory: React.FC<Props> = props => {
             Group items
           </Button>
           <Stack>
-            {history.map((historyItem: HistoryItemType, i: number, arr: HistoryItemType[]) => (
-              <HistoryItem
-                key={historyItem.createDate}
-                isLast={arr.length - 1 === i}
-                item={historyItem}
-              />
-            ))}
+            {history
+              .sort((a: HistoryItemType, b: HistoryItemType) =>
+                a.createDate > b.createDate ? -1 : 1
+              )
+              .map((historyItem: HistoryItemType, i: number, arr: HistoryItemType[]) => (
+                <HistoryItem
+                  key={historyItem.createDate}
+                  isLast={arr.length - 1 === i}
+                  item={historyItem}
+                />
+              ))}
           </Stack>
         </ModalBody>
       </ModalContent>

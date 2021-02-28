@@ -2,7 +2,7 @@ import { Box } from '@chakra-ui/react';
 import { useState } from 'react';
 import useSWR from 'swr';
 import { Products, Header, Banner, AddPoints, UserHistory } from '../components';
-import { User } from '../types';
+import { UserType } from '../utils/types';
 
 const fetcher = async (url: string): Promise<any> =>
   fetch(url, {
@@ -37,7 +37,7 @@ const Home: React.FC = (): JSX.Element => {
 
   if (error) return <p>Error fetching user</p>;
   if (!data) return <p>Loading user</p>;
-  const user: User = data;
+  const user: UserType = data;
   return (
     <Box maxWidth={1300} mx="auto">
       <Header openAddPoints={openAddPoints} openUserHistory={openUserHistory} user={user} />

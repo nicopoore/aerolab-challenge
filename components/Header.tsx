@@ -9,10 +9,10 @@ import {
   Stack,
 } from '@chakra-ui/react';
 import { SmallAddIcon } from '@chakra-ui/icons';
-import { User } from '../types';
+import { UserType } from '../utils/types';
 
 interface Props {
-  user: User;
+  user: UserType;
   openAddPoints: () => void;
   openUserHistory: () => void;
 }

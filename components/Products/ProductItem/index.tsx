@@ -1,12 +1,12 @@
 import { Box, Divider, Image, Text } from '@chakra-ui/react';
 import React, { useState } from 'react';
-import { Product, User } from '../../../types';
+import { ProductType, UserType } from '../../../utils/types';
 import Badge from './Badge';
 import Overlay from './Overlay';
 
 interface Props {
-  product: Product;
-  user: User;
+  product: ProductType;
+  user: UserType;
   openAddPoints: () => void;
 }
 

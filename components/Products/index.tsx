@@ -1,7 +1,7 @@
 import { Box, Flex } from '@chakra-ui/react';
 import { useState } from 'react';
 import useSWR from 'swr';
-import { Product, User } from '../../types';
+import { ProductType, UserType } from '../../utils/types';
 import ProductItem from './ProductItem/index';
 import Toolbar from './Toolbar/index';
 
@@ -17,7 +17,7 @@ const fetcher = async (url: string): Promise<any> =>
 
 interface Props {
   itemsPerPage: number;
-  user: User;
+  user: UserType;
   openAddPoints: () => void;
 }
 
@@ -33,7 +33,7 @@ const Products: React.FC<Props> = (props): JSX.Element => {
 
   const itemSlice = [props.itemsPerPage * (currentPage - 1), props.itemsPerPage * currentPage];
 
-  const sortingAlgorithm = <T extends Product>(
+  const sortingAlgorithm = <T extends ProductType>(
     sort: 'recent' | 'lowest' | 'highest'
     // eslint-disable-next-line no-unused-vars
   ): ((a: T, b: T) => number) => {
@@ -55,7 +55,7 @@ const Products: React.FC<Props> = (props): JSX.Element => {
         {data
           .sort(sortingAlgorithm(sort))
           .slice(itemSlice[0], itemSlice[1])
-          .map((product: Product) => (
+          .map((product: ProductType) => (
             <ProductItem
               key={product._id}
               openAddPoints={props.openAddPoints}

@@ -1,6 +1,6 @@
 import { Stack, Image, Text, Divider } from '@chakra-ui/react';
 import React from 'react';
-import { HistoryItemType } from '../../types';
+import { HistoryItemType } from '../../utils/types';
 
 interface Props {
   item: HistoryItemType;
@@ -9,6 +9,7 @@ interface Props {
 
 const HistoryItem: React.FC<Props> = (props): JSX.Element => {
   const { qty } = props.item;
+
   const formatDate = (date: string): string => {
     const newDate = new Date(Date.parse(date));
     return newDate.toLocaleDateString('en-US', {
@@ -17,7 +18,9 @@ const HistoryItem: React.FC<Props> = (props): JSX.Element => {
       year: 'numeric',
     });
   };
+
   const formatNumbers = (value: number): string => value.toLocaleString('en-US');
+
   return (
     <>
       <Stack alignItems="center" direction="row" justify="space-between" py={3}>
@@ -41,12 +44,12 @@ const HistoryItem: React.FC<Props> = (props): JSX.Element => {
             <Text color={`${qty && 'gray.400'}`} fontSize={qty && 'sm'}>
               Item price: {formatNumbers(props.item.cost)}
             </Text>
-            <Image src="/icons/coin.svg" width="25px" />
+            <Image fallbackSrc="/icons/coin.svg" src="/icons/coin.svg" width="25px" />
           </Stack>
           {qty && (
             <Stack direction="row">
               <Text>Total price: {formatNumbers(props.item.cost * qty)}</Text>
-              <Image src="/icons/coin.svg" width="25px" />
+              <Image fallbackSrc="/icons/coin.svg" src="/icons/coin.svg" width="25px" />
             </Stack>
           )}
         </Stack>
