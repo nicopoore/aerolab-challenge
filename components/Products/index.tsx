@@ -33,7 +33,7 @@ const Products: React.FC<Props> = (props): JSX.Element => {
   };
 
   return (
-    <Box bgColor="gray.50" pb={12} px={16}>
+    <Box bgColor="gray.50" pb={12} px={[6, 16]}>
       <Toolbar
         currentPage={currentPage}
         itemsPerPage={props.itemsPerPage}
@@ -42,7 +42,7 @@ const Products: React.FC<Props> = (props): JSX.Element => {
         setSort={setSort}
         sort={sort}
       />
-      <Flex justify="space-between" pt={4} wrap="wrap">
+      <Flex justify="space-around" pt={4} wrap="wrap">
         {data
           .sort(sortingAlgorithm(sort))
           .slice(itemSlice[0], itemSlice[1])

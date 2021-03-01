@@ -1,4 +1,4 @@
-import { Divider, Flex, Spacer, Text } from '@chakra-ui/react';
+import { Divider, Flex, Spacer, Stack, Text } from '@chakra-ui/react';
 import React from 'react';
 import NavButtons from './NavButtons';
 import Sorting from './Sorting';
@@ -30,16 +30,20 @@ const Toolbar: React.FC<Props> = (props): JSX.Element => {
   const lastPage = currentItems === props.nOfItems;
   return (
     <>
-      <Flex alignItems="center" py={8}>
+      <Stack alignItems="center" direction="row" justify="center" py={8} wrap="wrap">
         <Text fontSize="xl">
           {currentItems - props.itemsPerPage + 1}-{currentItems} of {props.nOfItems} products
         </Text>
+
         {!props.noSort && (
-          <Sorting
-            setCurrentPage={props.setCurrentPage}
-            setSort={props.setSort}
-            sort={props.sort}
-          />
+          <Flex alignItems="center" order={[-1, 0]} width={['60%', 'initial']}>
+            <Divider display={['none', 'initial']} h="32px" mx={2} orientation="vertical" pr={2} />
+            <Sorting
+              setCurrentPage={props.setCurrentPage}
+              setSort={props.setSort}
+              sort={props.sort}
+            />
+          </Flex>
         )}
         <Spacer />
         <NavButtons
@@ -48,7 +52,7 @@ const Toolbar: React.FC<Props> = (props): JSX.Element => {
           nextPage={nextPage}
           previousPage={previousPage}
         />
-      </Flex>
+      </Stack>
       <Divider />
     </>
   );

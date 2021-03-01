@@ -1,4 +1,4 @@
-import { Box, Divider, Button, Text } from '@chakra-ui/react';
+import { Button, Text, Flex } from '@chakra-ui/react';
 
 interface Props {
   sort: 'recent' | 'lowest' | 'highest';
@@ -34,11 +34,8 @@ const Sorting: React.FC<Props> = (props): JSX.Element => {
     props.setCurrentPage(() => 1);
   };
   return (
-    <>
-      <Box height="32px">
-        <Divider mx={4} orientation="vertical" />
-      </Box>
-      <Text color="gray.400" fontSize="xl">
+    <Flex alignItems="center" direction={['column', 'row']} mb={[4, 0]} mt={[-2, 0]}>
+      <Text color="gray.400" display={['none', 'initial']} fontSize="xl">
         Sort by:
       </Text>
       {buttons.map(button => {
@@ -51,13 +48,14 @@ const Sorting: React.FC<Props> = (props): JSX.Element => {
             color={active ? 'white' : 'gray.500'}
             fontSize="lg"
             ml={4}
+            mt={[1, 0]}
             onClick={() => handleClick(button.onClickParam)}
           >
             {button.name}
           </Button>
         );
       })}
-    </>
+    </Flex>
   );
 };
 

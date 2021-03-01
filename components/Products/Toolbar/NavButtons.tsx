@@ -1,4 +1,4 @@
-import { IconButton, Image } from '@chakra-ui/react';
+import { IconButton, Image, Box } from '@chakra-ui/react';
 
 interface Props {
   firstPage: boolean;
@@ -13,7 +13,7 @@ const NavButtons: React.FC<Props> = (props): JSX.Element => {
       ariaLabel: 'previous page',
       disabled: props.firstPage,
       iconType: 'left',
-      mr: 4,
+      mr: [1, 4],
       onClick: props.previousPage,
     },
     {
@@ -25,7 +25,7 @@ const NavButtons: React.FC<Props> = (props): JSX.Element => {
     },
   ];
   return (
-    <>
+    <Box>
       {buttons.map(button => (
         <IconButton
           key={button.ariaLabel}
@@ -38,7 +38,7 @@ const NavButtons: React.FC<Props> = (props): JSX.Element => {
           onClick={button.onClick}
         />
       ))}
-    </>
+    </Box>
   );
 };
 

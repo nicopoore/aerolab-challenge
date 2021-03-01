@@ -24,7 +24,7 @@ const Header: React.FC<Props> = (props): JSX.Element => {
         <Image src="/aerolab-logo.svg" />
       </Link>
       <Spacer />
-      <Text fontSize="2xl" lineHeight="45px" mr={4}>
+      <Text fontSize={['xl', '2xl']} lineHeight="45px" mr={2}>
         {props.user.name}
       </Text>
       <ButtonGroup isAttached>

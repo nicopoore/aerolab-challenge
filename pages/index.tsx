@@ -30,7 +30,7 @@ const Home: React.FC = (): JSX.Element => {
   if (!data) return <p>Loading user</p>;
   const user: UserType = data;
   return (
-    <Box maxWidth={1300} mx="auto">
+    <Box maxWidth={1300} mb={[0, 16]} mx="auto">
       <Header openAddPoints={openAddPoints} openUserHistory={openUserHistory} user={user} />
       <Banner />
       <Products itemsPerPage={16} openAddPoints={openAddPoints} user={user} />
