@@ -27,6 +27,7 @@ const Overlay: React.FC<Props> = (props): JSX.Element => {
     });
     setIsRedeeming(() => false);
     mutate('/api/user/me', { ...props, points: props.points - props.cost });
+    mutate('/api/user/history');
   };
   const difference = props.cost - props.points;
   const affordable = difference <= 0;
