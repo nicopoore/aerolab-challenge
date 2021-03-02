@@ -1,10 +1,10 @@
-import { Divider, Flex, Spacer, Stack, Text } from '@chakra-ui/react';
+import { Divider, Flex, SkeletonText, Spacer, Stack, Text } from '@chakra-ui/react';
 import React from 'react';
 import NavButtons from './NavButtons';
 import Sorting from './Sorting';
 
 interface Props {
-  nOfItems: number;
+  nOfItems: number | 'loading';
   itemsPerPage: number;
   noSort?: boolean;
   sort?: 'recent' | 'lowest' | 'highest';
@@ -25,15 +25,27 @@ const Toolbar: React.FC<Props> = (props): JSX.Element => {
     props.setCurrentPage(() => props.currentPage + 1);
   };
 
-  const currentItems = props.itemsPerPage * props.currentPage;
-  const firstPage = props.currentPage === 1;
-  const lastPage = currentItems === props.nOfItems;
+  let itemsThisPage: number;
+  let currentItems: number;
+  let firstPage: boolean;
+  let lastPage: boolean;
+
+  if (props.nOfItems !== 'loading') {
+    itemsThisPage = props.itemsPerPage * props.currentPage;
+    currentItems = itemsThisPage < props.nOfItems ? itemsThisPage : props.nOfItems;
+    firstPage = props.currentPage === 1;
+    lastPage = currentItems === props.nOfItems;
+  }
   return (
     <>
       <Stack alignItems="center" direction="row" justify="center" py={8} wrap="wrap">
-        <Text fontSize="xl">
-          {currentItems - props.itemsPerPage + 1}-{currentItems} of {props.nOfItems} products
-        </Text>
+        {props.nOfItems !== 'loading' ? (
+          <Text fontSize="xl">
+            {currentItems - props.itemsPerPage + 1}-{currentItems} of {props.nOfItems} products
+          </Text>
+        ) : (
+          <SkeletonText noOfLines={1} w={48} />
+        )}
 
         {!props.noSort && (
           <Flex alignItems="center" order={[-1, 0]} width={['60%', 'initial']}>
@@ -46,12 +58,14 @@ const Toolbar: React.FC<Props> = (props): JSX.Element => {
           </Flex>
         )}
         <Spacer />
-        <NavButtons
-          firstPage={firstPage}
-          lastPage={lastPage}
-          nextPage={nextPage}
-          previousPage={previousPage}
-        />
+        {props.nOfItems !== 'loading' && (
+          <NavButtons
+            firstPage={firstPage}
+            lastPage={lastPage}
+            nextPage={nextPage}
+            previousPage={previousPage}
+          />
+        )}
       </Stack>
       <Divider />
     </>

@@ -7,12 +7,13 @@ import {
   ButtonGroup,
   IconButton,
   Stack,
+  SkeletonText,
 } from '@chakra-ui/react';
 import { SmallAddIcon } from '@chakra-ui/icons';
 import { UserType } from '../utils/types';
 
 interface Props {
-  user: UserType;
+  user: UserType | 'loading';
   openAddPoints: () => void;
   openUserHistory: () => void;
 }
@@ -24,14 +25,22 @@ const Header: React.FC<Props> = (props): JSX.Element => {
         <Image src="/aerolab-logo.svg" />
       </Link>
       <Spacer />
-      <Text fontSize={['xl', '2xl']} lineHeight="45px" mr={2}>
-        {props.user.name}
-      </Text>
+      {props.user !== 'loading' ? (
+        <Text fontSize={['xl', '2xl']} lineHeight="45px" mr={2}>
+          {props.user.name}
+        </Text>
+      ) : (
+        <SkeletonText mr={2} noOfLines={2} w={28} />
+      )}
       <ButtonGroup isAttached>
         <Button pl={5} py={6} onClick={props.openUserHistory}>
-          <Text fontSize="xl" mr={2}>
-            {props.user.points}
-          </Text>
+          {props.user !== 'loading' ? (
+            <Text fontSize="xl" mr={2}>
+              {props.user.points}
+            </Text>
+          ) : (
+            <SkeletonText mr={2} noOfLines={1} w={8} />
+          )}
           <Image mt={1} src="/icons/coin.svg" />
         </Button>
         <IconButton

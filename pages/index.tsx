@@ -27,15 +27,18 @@ const Home: React.FC = (): JSX.Element => {
   };
 
   if (error) return <p>Error fetching user</p>;
-  if (!data) return <p>Loading user</p>;
-  const user: UserType = data;
+  const user: UserType | 'loading' = data ? data : 'loading';
   return (
     <Box maxWidth={1300} mb={[0, 16]} mx="auto">
       <Header openAddPoints={openAddPoints} openUserHistory={openUserHistory} user={user} />
       <Banner />
       <Products itemsPerPage={16} openAddPoints={openAddPoints} user={user} />
-      <AddPoints isOpen={addPointsIsOpen} points={user.points} onClose={closeAddPoints} />
-      <UserHistory isOpen={userHistoryIsOpen} onClose={closeUserHistory} />
+      {user !== 'loading' && (
+        <>
+          <AddPoints isOpen={addPointsIsOpen} points={user.points} onClose={closeAddPoints} />
+          <UserHistory isOpen={userHistoryIsOpen} onClose={closeUserHistory} />
+        </>
+      )}
     </Box>
   );
 };

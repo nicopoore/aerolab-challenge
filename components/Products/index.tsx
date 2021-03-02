@@ -8,7 +8,7 @@ import Toolbar from './Toolbar/index';
 
 interface Props {
   itemsPerPage: number;
-  user: UserType;
+  user: UserType | 'loading';
   openAddPoints: () => void;
 }
 
@@ -20,7 +20,6 @@ const Products: React.FC<Props> = (props): JSX.Element => {
   const [sort, setSort] = useState(initialSort);
 
   if (error) return <p>Error loading products</p>;
-  if (!data) return <p>Loading products...</p>;
 
   const itemSlice = [props.itemsPerPage * (currentPage - 1), props.itemsPerPage * currentPage];
 
@@ -37,29 +36,32 @@ const Products: React.FC<Props> = (props): JSX.Element => {
       <Toolbar
         currentPage={currentPage}
         itemsPerPage={props.itemsPerPage}
-        nOfItems={data.length}
+        nOfItems={data ? data.length : 'loading'}
         setCurrentPage={setCurrentPage}
         setSort={setSort}
         sort={sort}
       />
       <Flex justify="space-around" pt={4} wrap="wrap">
-        {data
-          .sort(sortingAlgorithm(sort))
-          .slice(itemSlice[0], itemSlice[1])
-          .map((product: ProductType) => (
-            <ProductItem
-              key={product._id}
-              openAddPoints={props.openAddPoints}
-              product={product}
-              user={props.user}
-            />
-          ))}
+        {data && props.user !== 'loading'
+          ? data
+              .sort(sortingAlgorithm(sort))
+              .slice(itemSlice[0], itemSlice[1])
+              .map((product: ProductType) => (
+                <ProductItem
+                  key={product._id}
+                  openAddPoints={props.openAddPoints}
+                  product={product}
+                  type="full"
+                  user={props.user !== 'loading' && props.user}
+                />
+              ))
+          : [...Array(props.itemsPerPage)].map((e, i) => <ProductItem key={i} type="skeleton" />)}
       </Flex>
       <Toolbar
         noSort
         currentPage={currentPage}
         itemsPerPage={props.itemsPerPage}
-        nOfItems={data.length}
+        nOfItems={data ? data.length : 'loading'}
         setCurrentPage={setCurrentPage}
       />
     </Box>
