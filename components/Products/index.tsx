@@ -2,13 +2,13 @@ import { Box, Flex } from '@chakra-ui/react';
 import { useState } from 'react';
 import useSWR from 'swr';
 import { fetcher } from '../../utils/functions';
-import { ProductType, UserType } from '../../utils/types';
+import { ProductType } from '../../utils/types';
 import ProductItem from './ProductItem/index';
 import Toolbar from './Toolbar/index';
 
 interface Props {
   itemsPerPage: number;
-  user: UserType | 'loading';
+  points: number | 'loading';
   openAddPoints: () => void;
 }
 
@@ -42,7 +42,7 @@ const Products: React.FC<Props> = (props): JSX.Element => {
         sort={sort}
       />
       <Flex justify="space-around" pt={4} wrap="wrap">
-        {data && props.user !== 'loading'
+        {data && props.points !== 'loading'
           ? data
               .sort(sortingAlgorithm(sort))
               .slice(itemSlice[0], itemSlice[1])
@@ -52,7 +52,7 @@ const Products: React.FC<Props> = (props): JSX.Element => {
                   openAddPoints={props.openAddPoints}
                   product={product}
                   type="full"
-                  user={props.user !== 'loading' && props.user}
+                  userPoints={props.points !== 'loading' && props.points}
                 />
               ))
           : [...Array(props.itemsPerPage)].map((e, i) => <ProductItem key={i} type="skeleton" />)}

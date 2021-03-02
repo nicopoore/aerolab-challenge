@@ -7,7 +7,7 @@ import { ProductType } from '../../../utils/types';
 interface Props {
   visible: boolean;
   product: ProductType;
-  points: number;
+  userPoints: number;
   cost: number;
   openAddPoints: () => void;
 }
@@ -26,10 +26,10 @@ const Overlay: React.FC<Props> = (props): JSX.Element => {
       }),
     });
     setIsRedeeming(() => false);
-    mutate('/api/user/me', { ...props, points: props.points - props.cost });
+    mutate('/api/user/me', { ...props, points: props.userPoints - props.cost });
     mutate('/api/user/history');
   };
-  const difference = props.cost - props.points;
+  const difference = props.cost - props.userPoints;
   const affordable = difference <= 0;
   return (
     <Box h="100%" left={0} position="absolute" top={0} w="100%">

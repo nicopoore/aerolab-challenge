@@ -27,15 +27,23 @@ const Home: React.FC = (): JSX.Element => {
   };
 
   if (error) return <p>Error fetching user</p>;
-  const user: UserType | 'loading' = data ? data : 'loading';
+  const user: UserType = data;
   return (
     <>
       <Meta />
       <Box maxWidth={1300} mb={[0, 16]} mx="auto">
-        <Header openAddPoints={openAddPoints} openUserHistory={openUserHistory} user={user} />
+        <Header
+          openAddPoints={openAddPoints}
+          openUserHistory={openUserHistory}
+          user={user ? user : 'loading'}
+        />
         <Banner />
-        <Products itemsPerPage={16} openAddPoints={openAddPoints} user={user} />
-        {user !== 'loading' && (
+        <Products
+          itemsPerPage={16}
+          openAddPoints={openAddPoints}
+          points={user ? user.points : 'loading'}
+        />
+        {user && (
           <>
             <AddPoints isOpen={addPointsIsOpen} points={user.points} onClose={closeAddPoints} />
             <UserHistory isOpen={userHistoryIsOpen} onClose={closeUserHistory} />

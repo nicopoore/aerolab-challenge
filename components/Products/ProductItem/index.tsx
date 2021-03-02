@@ -1,13 +1,13 @@
 import { Box, Divider, Image, Skeleton, SkeletonText, Text } from '@chakra-ui/react';
 import React, { useState } from 'react';
-import { ProductType, UserType } from '../../../utils/types';
+import { ProductType } from '../../../utils/types';
 import Badge from './Badge';
 import Overlay from './Overlay';
 
 interface FullProps {
   type: 'full';
   product: ProductType;
-  user: UserType;
+  userPoints: number;
   openAddPoints: () => void;
 }
 
@@ -32,7 +32,7 @@ const ProductItem: React.FC<Props> = (props): JSX.Element => {
     );
   }
 
-  const difference = props.product.cost - props.user.points;
+  const difference = props.product.cost - props.userPoints;
   const showOverlay = (): void => {
     setOverlayIsVisible(() => true);
   };
@@ -69,8 +69,8 @@ const ProductItem: React.FC<Props> = (props): JSX.Element => {
       <Overlay
         cost={props.product.cost}
         openAddPoints={props.openAddPoints}
-        points={props.user.points}
         product={props.product}
+        userPoints={props.userPoints}
         visible={overlayIsVisible}
       />
       <Badge difference={difference} overlayIsVisible={overlayIsVisible} />
