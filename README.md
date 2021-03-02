@@ -32,7 +32,7 @@ Aerolab Challenge point rewards store, created by Nicolás Poore
 
 ## Notes
 
-The API calls are routed through the website's API first to simulate protecting the API key when using it from the front-end. Obviously in this case it doesn't really matter because the token doesn't need to be protected, but I still did it that way just to show how I would access a third party API in case the token/key needed protection.
+The API calls are routed through the website's API first to simulate protecting the API key when using it from the front-end. Obviously in this case it doesn't really matter because the token doesn't need to be protected (which is why it's stored in plaintext in the API files and not an environment variable), but I still did it that way just to show how I would access a third party API in case the token/key needed protection.
 
 ## Bugs
 
