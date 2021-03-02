@@ -10,22 +10,26 @@ interface Props {
   userPoints: number;
   cost: number;
   openAddPoints: () => void;
+  // eslint-disable-next-line no-unused-vars
+  openSuccess: (T: string) => void;
 }
 
 const Overlay: React.FC<Props> = (props): JSX.Element => {
   const [isRedeeming, setIsRedeeming] = useState(false);
   const handleRedeem = async (productId: string): Promise<void> => {
     setIsRedeeming(() => true);
-    await fetch('/api/redeem', {
+    const response = await fetch('/api/redeem', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
         productId: productId,
+        cost: props.cost,
       }),
     });
     setIsRedeeming(() => false);
+    props.openSuccess(response.status === 200 ? 'success' : 'error');
     mutate('/api/user/me', { ...props, points: props.userPoints - props.cost });
     mutate('/api/user/history');
   };

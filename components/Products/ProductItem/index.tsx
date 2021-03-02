@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { ProductType } from '../../../utils/types';
 import Badge from './Badge';
 import Overlay from './Overlay';
+import Success from './Success';
 
 interface FullProps {
   type: 'full';
@@ -19,6 +20,8 @@ type Props = FullProps | SkeletonProps;
 
 const ProductItem: React.FC<Props> = (props): JSX.Element => {
   const [overlayIsVisible, setOverlayIsVisible] = useState(false);
+  const [successIsOpen, setSuccessIsOpen] = useState(false);
+  const [successStatus, setSuccessStatus] = useState('');
 
   if (props.type === 'skeleton') {
     return (
@@ -39,42 +42,59 @@ const ProductItem: React.FC<Props> = (props): JSX.Element => {
   const hideOverlay = (): void => {
     setOverlayIsVisible(() => false);
   };
+  const openSuccess = (status: string): void => {
+    setSuccessStatus(() => status);
+    setSuccessIsOpen(() => true);
+  };
+  const closeSuccess = (): void => {
+    setSuccessIsOpen(() => false);
+  };
   return (
-    <Box
-      _hover={{
-        transform: 'translate(0, -5px)',
-        transition: 'transform .2s, box-shadow .2s',
-        shadow: 'md',
-      }}
-      bg="white"
-      m={6}
-      p={4}
-      position="relative"
-      shadow="sm"
-      transition="transform .3s, box-shadow .3s"
-      w="240px"
-      onMouseEnter={showOverlay}
-      onMouseLeave={hideOverlay}
-    >
-      <Image
-        alt={props.product.name}
-        fallbackSrc={props.product.img.url}
-        src={props.product.img.hdUrl}
-      />
-      <Divider my={4} />
-      <Text color="gray.400" fontSize="md">
-        {props.product.category}
-      </Text>
-      <Text fontSize="lg">{props.product.name}</Text>
-      <Overlay
-        cost={props.product.cost}
-        openAddPoints={props.openAddPoints}
+    <>
+      <Box
+        _hover={{
+          transform: 'translate(0, -5px)',
+          transition: 'transform .2s, box-shadow .2s',
+          shadow: 'md',
+        }}
+        bg="white"
+        m={6}
+        p={4}
+        position="relative"
+        shadow="sm"
+        transition="transform .3s, box-shadow .3s"
+        w="240px"
+        onMouseEnter={showOverlay}
+        onMouseLeave={hideOverlay}
+      >
+        <Image
+          alt={props.product.name}
+          fallbackSrc={props.product.img.url}
+          src={props.product.img.hdUrl}
+        />
+        <Divider my={4} />
+        <Text color="gray.400" fontSize="md">
+          {props.product.category}
+        </Text>
+        <Text fontSize="lg">{props.product.name}</Text>
+        <Overlay
+          cost={props.product.cost}
+          openAddPoints={props.openAddPoints}
+          openSuccess={openSuccess}
+          product={props.product}
+          userPoints={props.userPoints}
+          visible={overlayIsVisible}
+        />
+        <Badge difference={difference} overlayIsVisible={overlayIsVisible} />
+      </Box>
+      <Success
+        isOpen={successIsOpen}
         product={props.product}
+        status={successStatus}
         userPoints={props.userPoints}
-        visible={overlayIsVisible}
+        onClose={closeSuccess}
       />
-      <Badge difference={difference} overlayIsVisible={overlayIsVisible} />
-    </Box>
+    </>
   );
 };
 

@@ -13,7 +13,6 @@ const Home: React.FC = (): JSX.Element => {
   const openAddPoints = (): void => {
     setAddPointsIsOpen(true);
   };
-
   const closeAddPoints = (): void => {
     setAddPointsIsOpen(false);
   };
@@ -21,7 +20,6 @@ const Home: React.FC = (): JSX.Element => {
   const openUserHistory = (): void => {
     setUserHistoryIsOpen(true);
   };
-
   const closeUserHistory = (): void => {
     setUserHistoryIsOpen(false);
   };
