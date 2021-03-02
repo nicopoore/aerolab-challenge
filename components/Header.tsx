@@ -8,6 +8,7 @@ import {
   IconButton,
   Stack,
   SkeletonText,
+  Tooltip,
 } from '@chakra-ui/react';
 import { SmallAddIcon } from '@chakra-ui/icons';
 import { UserType } from '../utils/types';
@@ -33,23 +34,27 @@ const Header: React.FC<Props> = (props): JSX.Element => {
         <SkeletonText mr={2} noOfLines={2} w={28} />
       )}
       <ButtonGroup isAttached>
-        <Button pl={5} py={6} onClick={props.openUserHistory}>
-          {props.user !== 'loading' ? (
-            <Text fontSize="xl" mr={2}>
-              {props.user.points}
-            </Text>
-          ) : (
-            <SkeletonText mr={2} noOfLines={1} w={8} />
-          )}
-          <Image mt={1} src="/icons/coin.svg" />
-        </Button>
-        <IconButton
-          aria-label="add points"
-          icon={<SmallAddIcon />}
-          pr={5}
-          py={6}
-          onClick={props.openAddPoints}
-        />
+        <Tooltip label="Transaction history" openDelay={150}>
+          <Button pl={5} py={6} onClick={props.openUserHistory}>
+            {props.user !== 'loading' ? (
+              <Text fontSize="xl" mr={2}>
+                {props.user.points}
+              </Text>
+            ) : (
+              <SkeletonText mr={2} noOfLines={1} w={8} />
+            )}
+            <Image mt={1} src="/icons/coin.svg" />
+          </Button>
+        </Tooltip>
+        <Tooltip label="Add more points" openDelay={150}>
+          <IconButton
+            aria-label="add points"
+            icon={<SmallAddIcon />}
+            pr={5}
+            py={6}
+            onClick={props.openAddPoints}
+          />
+        </Tooltip>
       </ButtonGroup>
     </Stack>
   );

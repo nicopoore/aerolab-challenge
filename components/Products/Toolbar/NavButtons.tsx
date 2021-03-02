@@ -1,4 +1,4 @@
-import { IconButton, Image, Box } from '@chakra-ui/react';
+import { IconButton, Image, Box, Tooltip } from '@chakra-ui/react';
 
 interface Props {
   firstPage: boolean;
@@ -10,14 +10,14 @@ interface Props {
 const NavButtons: React.FC<Props> = (props): JSX.Element => {
   const buttons = [
     {
-      ariaLabel: 'previous page',
+      ariaLabel: 'Previous page',
       disabled: props.firstPage,
       iconType: 'left',
       mr: [1, 4],
       onClick: props.previousPage,
     },
     {
-      ariaLabel: 'next page',
+      ariaLabel: 'Next page',
       disabled: props.lastPage,
       iconType: 'right',
       mr: null,
@@ -27,16 +27,17 @@ const NavButtons: React.FC<Props> = (props): JSX.Element => {
   return (
     <Box>
       {buttons.map(button => (
-        <IconButton
-          key={button.ariaLabel}
-          aria-label={button.ariaLabel}
-          disabled={button.disabled}
-          h="100%"
-          icon={<Image src={`/icons/arrow-${button.iconType}.svg`} />}
-          mr={button.mr}
-          variant="unstyled"
-          onClick={button.onClick}
-        />
+        <Tooltip key={button.ariaLabel} label={button.ariaLabel} openDelay={150}>
+          <IconButton
+            aria-label={button.ariaLabel}
+            disabled={button.disabled}
+            h="100%"
+            icon={<Image src={`/icons/arrow-${button.iconType}.svg`} />}
+            mr={button.mr}
+            variant="unstyled"
+            onClick={button.onClick}
+          />
+        </Tooltip>
       ))}
     </Box>
   );
