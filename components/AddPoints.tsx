@@ -34,7 +34,7 @@ const AddPoints: React.FC<Props> = (props): JSX.Element => {
         amount: amount,
       }),
     });
-    setIsRedeeming(isReeeming => ({ ...isRedeeming, [index]: false }));
+    setIsRedeeming(isRedeeming => ({ ...isRedeeming, [index]: false }));
     mutate('/api/user/me', { ...props, points: props.points + amount });
   };
 
