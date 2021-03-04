@@ -27,7 +27,7 @@ const Header: React.FC<Props> = (props): JSX.Element => {
       </Link>
       <Spacer />
       {props.user !== 'loading' ? (
-        <Text fontSize={['xl', '2xl']} lineHeight="45px" mr={2}>
+        <Text as="h4" fontSize={['xl', '2xl']} lineHeight="45px" mr={2}>
           {props.user.name}
         </Text>
       ) : (
@@ -37,7 +37,7 @@ const Header: React.FC<Props> = (props): JSX.Element => {
         <Tooltip label="Transaction history" openDelay={150}>
           <Button pl={5} py={6} onClick={props.openUserHistory}>
             {props.user !== 'loading' ? (
-              <Text fontSize="xl" mr={2}>
+              <Text as="h5" fontSize="xl" mr={2}>
                 {props.user.points}
               </Text>
             ) : (

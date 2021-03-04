@@ -9,7 +9,14 @@ const Banner: React.FC = (): JSX.Element => {
       h={['120px', 'sm']}
       w="100%"
     >
-      <Text color="white" fontSize={['4xl', '6xl']} fontWeight="bold" mb={[2, 8]} ml={[4, 24]}>
+      <Text
+        as="h1"
+        color="white"
+        fontSize={['4xl', '6xl']}
+        fontWeight="bold"
+        mb={[2, 8]}
+        ml={[4, 24]}
+      >
         Electronics
       </Text>
     </Flex>
