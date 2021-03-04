@@ -42,7 +42,7 @@ const UserHistory: React.FC<Props> = props => {
   };
 
   const handleGroupSwitch = (): void => {
-    setIsGrouped(() => !isGrouped);
+    setIsGrouped(isGrouped => !isGrouped);
     setItemLimit(() => 10);
   };
 

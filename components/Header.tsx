@@ -27,7 +27,7 @@ const Header: React.FC<Props> = (props): JSX.Element => {
       </Link>
       <Spacer />
       {props.user !== 'loading' ? (
-        <Text fontSize={['xl', '2xl']} lineHeight="45px" mr={2}>
+        <Text as="h4" fontSize={['xl', '2xl']} lineHeight="45px" mr={2}>
           {props.user.name}
         </Text>
       ) : (

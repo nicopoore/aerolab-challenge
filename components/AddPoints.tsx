@@ -24,7 +24,7 @@ const AddPoints: React.FC<Props> = (props): JSX.Element => {
   const initialRef = React.useRef();
 
   const handleAdd = async (amount: number, index: number): Promise<void> => {
-    setIsRedeeming({ ...isRedeeming, [index]: true });
+    setIsRedeeming(isRedeeming => ({ ...isRedeeming, [index]: true }));
     await fetch('/api/user/points', {
       method: 'POST',
       headers: {
@@ -34,7 +34,7 @@ const AddPoints: React.FC<Props> = (props): JSX.Element => {
         amount: amount,
       }),
     });
-    setIsRedeeming({ ...isRedeeming, [index]: false });
+    setIsRedeeming(isRedeeming => ({ ...isRedeeming, [index]: false }));
     mutate('/api/user/me', { ...props, points: props.points + amount });
   };
 

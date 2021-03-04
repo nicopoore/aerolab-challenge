@@ -18,11 +18,11 @@ interface Props {
 const Toolbar: React.FC<Props> = (props): JSX.Element => {
   const previousPage = (): void => {
     if (firstPage) return null;
-    props.setCurrentPage(() => props.currentPage - 1);
+    props.setCurrentPage(currentPage => currentPage - 1);
   };
   const nextPage = (): void => {
     if (lastPage) return null;
-    props.setCurrentPage(() => props.currentPage + 1);
+    props.setCurrentPage(currentPage => currentPage + 1);
   };
 
   let itemsThisPage: number;
